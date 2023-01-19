@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="demo">
+  <h2>The XMLHttpRequest Object</h2>
+  <button type="button" onclick="loadDoc(myCallback)">Change Content</button>
+  <button type="button" onclick="loadDoc(myCallback1)">Change Content2</button>
+</div>
+<div id="demo1">
+  
+</div>
+
+<script>
+
+
+function loadDoc(callbackFun) {
+// Create a new request.
+  const xhttp = new XMLHttpRequest();//This is a object
+
+// What to do when respons arrives rules...
+  xhttp.onload = function() {
+    callbackFun(this);
+  }
+
+//Prepare request...
+  xhttp.open("GET", "data.txt");
+  //Send request
+  xhttp.send();
+
+}
+
+function myCallback(xhttp){
+  document.getElementById("demo").innerHTML =
+    xhttp.responseText;
+}
+function myCallback1(xhttp){
+  document.getElementById("demo1").innerHTML =
+    xhttp.responseText;
+}
+
+</script>
+
+</body>
+</html>

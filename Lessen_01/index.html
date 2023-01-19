@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="demo">
+  <h2>The XMLHttpRequest Object</h2>
+  <button type="button" onclick="loadDoc()">Change Content</button>
+</div>
+
+<script>
+// The keystone of AJAX is the XMLHttpRequest object.
+  // Create an XMLHttpRequest object
+  // Define a callback function
+  // Open the XMLHttpRequest object
+  // Send a Request to a server
+
+function loadDoc() {
+// Create a new request.
+  const xhttp = new XMLHttpRequest();//This is a object
+
+// What to do when respons arrives rules...
+  xhttp.onload = function() {//response payer pore kaj korbe
+    // const container = document.getElementById("demo");
+    // container.innerHTML = xhttp.responseText;
+    document.getElementById("demo").innerHTML =
+    this.responseText;
+  }
+//Prepare request...
+  xhttp.open("GET", "data.txt");// methods GET, POST, PUT,PATCH, DELETE.
+  // xhttp.open("GET", "data.txt", true);// this is assencronose. so it only send request not waiting back request than after next line.
+  // xhttp.open("GET", "data.txt", false);
+  //Send request// this is not assencronose. so it not only send request and also waiting back request than after next line.
+  xhttp.send();
+
+  // abort--> Cancels the current request
+  // xhttp.abort(); 
+
+}
+
+</script>
+
+</body>
+</html>

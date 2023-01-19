@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="demo">
+  <h2>Ajax Example</h2>
+
+  <p><button id='get' >Get Data</button></p>
+  <p><button id='send' >Send Data</button></p>
+</div>
+
+
+<script>
+
+function sendRequest(method, url, data){
+
+  const promise = new Promise((resolve, reject) => {
+  const xhttp = new XMLHttpRequest();
+
+  xhttp.onload = function() {
+    // handel application error...
+    if(this.status >= 400){
+      reject('This is an application Error and the response status is ${this.status}');
+    }
+    else{
+      resolve(this.response);
+    }
+      
+  }
+
+  xhttp.onerror = function() {
+      reject("This is an Error.");
+  }
+
+  xhttp.open(method, url);
+  xhttp.responseType = "json";
+  xhttp.send(data);
+
+  });
+
+  return promise;
+  // const xhttp = new XMLHttpRequest();
+
+  // xhttp.onload = function() {
+  //     // console.log(this.responseText);
+  //      // console.log(JSON.parse(this.responseText));// JSON.parse akta string ke valide data set e convert kore..
+  //     // console.log(JSON.parse(this.responseText).userId);
+  //     console.log(this.response);
+  // }
+  // // xhttp.open("GET", "https://jsonplaceholder.typicode.com/todos/1");
+  // xhttp.open(method, url);
+
+  // xhttp.responseType = "json";
+
+  // xhttp.send();
+}
+
+function getData(){
+  sendRequest("GET", "https://jsonplaceholder.typicode.com/todos/1").then((responseData) => {
+    console.log(responseData);
+
+  })
+  // Error handel...
+  .catch(err => { 
+    console.log(err);
+  });
+}
+
+function sendData(){
+  sendRequest("POST", "https://jsonplaceholder.typicode.com/posts", JSON.stringify({
+    title: 'foo',
+    body: 'bar',
+    userId: 1,
+  })).then((responseData) => {
+    console.log(responseData);
+
+  });
+
+}
+
+const getButton = document.getElementById("get");
+const sendButton = document.getElementById("send");
+
+getButton.addEventListener("click", getData);
+sendButton.addEventListener("click", sendData);
+</script>
+
+</body>
+</html>
